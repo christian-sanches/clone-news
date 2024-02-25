@@ -3,7 +3,7 @@ import React from "react";
 const Home: React.FC = () => {
   return (
     <div>
-      <h1>Oi Amor! Estou aqui na piscina te esperando! {`<3`}</h1>
+      <h1>Em construção!</h1>
     </div>
   );
 };
