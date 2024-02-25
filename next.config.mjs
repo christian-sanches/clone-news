@@ -1,5 +1,5 @@
 export default {
-    experimental: {   
-        appDir: true,
-    },
+  experimental: {
+    appDir: true,
+  },
 };
