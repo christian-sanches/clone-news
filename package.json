@@ -4,7 +4,9 @@
   "description": "Clone project from tabnews.com.br",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev"
+    "dev": "next dev",
+    "lint:check": "prettier --check . && eslint --ignore-path .gitignore .",
+    "lint:fix": "prettier --write . && eslint --ignore-path .gitignore ."
   },
   "author": "christian-sanches",
   "license": "MIT",
@@ -16,6 +18,7 @@
   },
   "devDependencies": {
     "@types/node": "20.5.7",
-    "@types/react": "^18.2.0"
+    "@types/react": "^18.2.0",
+    "prettier": "^3.2.5"
   }
 }
