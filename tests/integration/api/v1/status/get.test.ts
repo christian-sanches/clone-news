@@ -11,6 +11,11 @@ describe("GET /api/v1/status", () => {
     const parsedStatus = StatusSchema.safeParse(responseBody);
 
     expect(parsedStatus.success).toBe(true);
+  });
+
+  it("should return the expected values from the database", async () => {
+    const response = await fetch("http://localhost:3000/api/v1/status");
+    const responseBody = await response.json();
 
     expect(responseBody.updated_at).toBeDefined();
     const parsedUpdatedAt = new Date(responseBody.updated_at).toISOString();
@@ -28,9 +33,9 @@ describe("GET /api/v1/status", () => {
       updated_at: parsedUpdatedAt,
       dependencies: {
         database: {
-          version: expect.any(String),
-          max_connections: expect.any(Number),
-          active_connections: expect.any(Number),
+          version: "16.0",
+          max_connections: 100,
+          active_connections: 1,
         },
       },
     });
