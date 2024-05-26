@@ -13,10 +13,12 @@ export async function GET() {
 
   return NextResponse.json({
     updated_at,
-    database: {
-      version,
-      max_connections: Number(max_connections),
-      active_connections: length,
+    dependencies: {
+      database: {
+        version,
+        max_connections: Number(max_connections),
+        active_connections: length,
+      },
     },
   });
 }
