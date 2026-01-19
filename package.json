@@ -13,8 +13,8 @@
     "migration:down": "node-pg-migrate -m infra/migrations --envPath .env.development down",
     "lint:check": "prettier --check . && eslint --ignore-path .gitignore .",
     "lint:fix": "prettier --write . && eslint --ignore-path .gitignore .",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand"
   },
   "author": "christian-sanches",
   "license": "MIT",

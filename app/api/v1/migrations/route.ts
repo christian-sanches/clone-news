@@ -1,27 +1,24 @@
 import { NextResponse } from "next/server";
-import { runner as migrationRunner } from "node-pg-migrate";
+import { runner as migrationRunner, RunnerOption } from "node-pg-migrate";
 import { join } from "node:path";
 
+const migrationSettings: RunnerOption = {
+  databaseUrl: process.env.DATABASE_URL,
+  dir: join(process.cwd(), "infra", "migrations"),
+  direction: "up",
+  migrationsTable: "pgmigrations",
+  verbose: true,
+}
+
 export async function GET() {
-  const migrations = await migrationRunner({
-    databaseUrl: process.env.DATABASE_URL,
+  const pendingMigrations = await migrationRunner({
+    ...migrationSettings,
     dryRun: true,
-    dir: join(process.cwd(), "infra", "migrations"),
-    direction: "up",
-    migrationsTable: "pgmigrations",
-    verbose: true,
   });
-  return NextResponse.json(migrations);
+  return NextResponse.json(pendingMigrations);
 }
 
 export async function POST() {
-  const migrations = await migrationRunner({
-    databaseUrl: process.env.DATABASE_URL,
-    dryRun: true,
-    dir: join(process.cwd(), "infra", "migrations"),
-    direction: "up",
-    migrationsTable: "pgmigrations",
-    verbose: true,
-  });
-  return NextResponse.json(migrations, { status: 201 });
+  const migratedMigrations = await migrationRunner(migrationSettings);
+  return NextResponse.json(migratedMigrations, { status: migratedMigrations.length > 0 ? 201 : 200 });
 }
